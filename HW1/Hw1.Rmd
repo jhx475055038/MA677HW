@@ -1,0 +1,10 @@
+---
+title: "MA677HW1"
+output: pdf_document
+author: Jiahao Xu
+date: 02/09/2019
+---
+
+![Hw1](1.jpg)
+![Hw1](2.jpg)
+![Hw1](3.jpg)
