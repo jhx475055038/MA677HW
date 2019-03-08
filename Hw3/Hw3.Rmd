@@ -1,0 +1,78 @@
+---
+title: "MA677HW3"
+output: 
+  pdf_document: 
+    latex_engine: xelatex
+author: Jiahao Xu
+date: 03/08/2019
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(tidyverse)
+library(magrittr)
+library(readr)
+library(RCurl)
+library(ACSWR)
+```
+
+1.
+```{r}
+Df1=read.table("maybe_uniform.txt")
+test1=c(Df1$V1,Df1$V2,Df1$V3,Df1$V4,Df1$V5)
+ks.test(test1,"punif")
+x<-seq(-5, 5, by=0.01)
+fx <- ifelse(x > 0 & x <=0.5, 2/3,
+   ifelse(x > 0.5 & x < 1,  0.5, 0))
+plot(x,fx)
+ks.test(fx,"punif")
+```
+According to result of ks-test, these data is distributed as a Uniform distribution on [0,1].
+Since in ks-test, the D value of fx is less than that of data, the model below is better than the Uniform。
+
+2.
+```{r}
+Df2=read.table("maybe_normal.txt")
+d=c(Df2$V1,Df2$V2,Df2$V3,Df2$V4,Df2$V5)
+test2=(c(Df2$V1,Df2$V2,Df2$V3,Df2$V4,Df2$V5)-rep(26,50))/2
+ks.test(test2,"pnorm")
+qqnorm(d)
+hist(d)
+```
+According to Ks-test and qqnorm, the data generally follow normal disatribution.
+
+
+3. 
+```{r}
+Df31=read.table("maybe_same_1.txt")
+x=c(Df31$V1,Df31$V2,Df31$V3,Df31$V4,Df31$V5)
+Df32=read.table("maybe_same_2.txt")
+y=c(Df32$V1,Df32$V2,Df32$V3,Df32$V4,Df32$V5)
+ks.test(x,y)
+ks.test(x+2,y)
+```
+
+Since p-value of of ks.test(X,Y) is much larger than 0.05. Then we fail to reject the null hypotheses, thus X and Y are from the same distribution. Since p-value of of ks.test(X+2,Y) is much smaller than 0.05.Then we reject the null hypotheses, therefore X+2 and Y are not from the same distribution
+
+
+4. 
+```{r}
+Df4=readRDS("norm_sample.Rdata")
+Df4_ecdf=ecdf(Df4)
+summary(Df4_ecdf)
+plot.ecdf(Df4)
+
+us=rnorm(25)
+ks.test(Df4,us)
+```
+
+
+5. 
+```{r}
+
+```
+
+
